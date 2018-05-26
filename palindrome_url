@@ -1,0 +1,17 @@
+#!/usr/local/bin/node
+var request = require('request');
+let Phrase = require('leighmforrest-palindrome');
+let url = 'https://cdn.learnenough.com/phrases.txt';
+
+request(url, (error, response, body)=>{
+    let lines = body.split("\n");
+    let palindromes = lines.filter(line=>{
+        phrase = new Phrase(line);
+        if (phrase.palindrome()) {
+            return phrase;
+        }
+    });
+    palindromes.forEach(function(palindrome){
+        console.log("palindrome detected:", palindrome);
+    });
+});
